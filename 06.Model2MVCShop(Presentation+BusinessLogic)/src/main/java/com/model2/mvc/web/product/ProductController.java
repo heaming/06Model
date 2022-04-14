@@ -2,7 +2,6 @@ package com.model2.mvc.web.product;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +72,7 @@ public class ProductController {
 		
 		System.out.println("/addProductSuccess.do");
 		
-		return "/product/addProduct.jsp";
+		return "forward:/product/addProduct.jsp";
 	}
 
 
@@ -91,7 +90,7 @@ public class ProductController {
 	}
 
 	@RequestMapping("/listProduct.do")
-	public String listProduct(@ModelAttribute("search") Search search, @RequestParam("menu") String menu, Model model, HttpServletRequest request) throws Exception {
+	public String listProduct(@ModelAttribute("search") Search search, @RequestParam("menu") String menu, Model model) throws Exception {
 
 		System.out.println("/listProduct.do");
 
@@ -136,8 +135,6 @@ public class ProductController {
 		System.out.println("/updateProduct.do");
 		
 		productService.updateProduct(product);
-		
-		//menu = (String) model.getAttribute("menu");
 
 		product = productService.getProduct(product.getProdNo());
 
