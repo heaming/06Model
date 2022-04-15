@@ -28,13 +28,14 @@
 <script type="text/javascript">
 
 function fncAddPurchase() {
+	document.addPurchase.action = '/addPurchase.do';
 	document.addPurchase.submit();
 }
 
 </script>
 </head>
 <body>
-	<form name="addPurchase" method="post" action="/addPurchase.do">
+	<form name="addPurchase" method="post">
 	
 	<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 		<tr>
@@ -135,7 +136,7 @@ function fncAddPurchase() {
 		<tr>
 			<td width="104" class="ct_write">등록일자</td>
 			<td bgcolor="D6D6D6" width="1"></td>
-			<td class="ct_write01">${product.calRegDate}</td>
+			<td class="ct_write01">${product.regDate}</td>
 		</tr>
 		<tr>
 			<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -191,7 +192,7 @@ function fncAddPurchase() {
 			<td width="104" class="ct_write">구매자 이메일</td>
 			<td bgcolor="D6D6D6" width="1"></td>
 			<td class="ct_write01">
-				<input 	type="text" name="receiverAddr" class="ct_input_g" 
+				<input 	type="text" name="divyAddr" class="ct_input_g" 
 								style="width: 100px; height: 19px" maxLength="20" 	value="${user.addr}" />
 			</td>
 		</tr>
@@ -202,7 +203,7 @@ function fncAddPurchase() {
 			<td width="104" class="ct_write">판매자에게 보내는 메시지</td>
 			<td bgcolor="D6D6D6" width="1"></td>
 			<td class="ct_write01">
-				<input		type="text" name="receiverMsg" 	class="ct_input_g" 
+				<input		type="text" name="divyMessage" 	class="ct_input_g" 
 								style="width: 100px; height: 19px" maxLength="20" />
 			</td>
 		</tr>

@@ -87,24 +87,26 @@
 		<c:forEach var="purchase" items="${list}">
 			<c:set var="i" value="${ i+1 }" />
 			<tr class="ct_list_pop">
-				<td align="center"><a href="/getPurchase.do?tranNo=${purchase.tranNo}">${purchase.tranNo}</a></td>
+				<td align="center"><a href="/getPurchase.do?tranNo=${tranNo}">${purchase.tranNo}</a></td>
 				<td></td>
-				<td align="left"><a href="/getUser.do?userId=${purchase.purchaseProd.sellerId}">${purchase.purchaseProd.sellerId}</a></td>
+				<td align="left"><a href="/getUser.do?userId=${purchaseProd.sellerId}">${purchase}</a></td>
 				<td></td>
 				<td align="left">${purchase.divyMessage}</td>
 				<td></td>	
+				<td align="left"><a href="/getProduct.do?prodNo=${purchase.purchaseProd.prodNo}&menu=search">${purchase.purchaseProd.prodName}</a></td>
+				<td></td>
 				<td align="left">
 					<c:choose>
-						<c:when test="${purchase.tranCode.equals('001')}">
+						<c:when test="${purchase.tranCode.trim().equals('1')}">
 							${trancode = "상품 준비중"}	
 						</c:when>
-						<c:when test="${purchase.tranCode.equals('002')}">
+						<c:when test="${purchase.tranCode.trim().equals('2')}">
 							${trancode = "배송중"}	
 						</c:when>
-						<c:when test="${tranCode.equals('003')}">
+						<c:when test="${purchase.tranCode.trim().equals('3')}">
 							${trancode = "배송 완료"}	
 						</c:when>
-						<c:when test="${tranCode.equals('004')}">
+						<c:when test="${purchase.tranCode.trim().equals('4')}">
 							${trancode = "품절"}	
 						</c:when>
 						<c:otherwise>
@@ -112,8 +114,6 @@
 						</c:otherwise>		
 					</c:choose>
 				</td>
-				<td></td>
-				<td align="left"><a href="/getProduct.do?prodNo=${purchase.purchaseProd.prodNo}&menu=search">${purchase.purchaseProd.prodName}</a></td>
 			</tr>
 			<tr>
 			<td colspan="11" bgcolor="D6D7D6" height="1"></td>

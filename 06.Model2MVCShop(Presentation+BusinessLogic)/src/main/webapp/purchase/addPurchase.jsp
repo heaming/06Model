@@ -23,19 +23,19 @@
 
 <form name="updatePurchase" action="/updatePurchaseView.do?tranNo=${purchase.tranNo}" method="post">
 
-거래요청이 시작되었습니다.
-상대방이 메시지를 확인하면 거래가 시작됩니다:D
+거래요청
 
 <table border=1>
+
 	<tr>
 		<td>주문번호</td>
 		<td>${purchase.purchaseProd.prodNo}</td>
 		<td></td>
 	</tr>
 	<tr>
-		<td>거래요청 기프티콘</td>
+		<td>거래요청 상품</td>
 		<td>${purchase.purchaseProd.prodName}</td>
-		<td></td>
+		<td>${purchase.tranNo}</td>
 	</tr>
 	<tr>
 		<td>판매자 아이디</td>

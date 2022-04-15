@@ -74,7 +74,7 @@ if (vo != null) {
 			<td valign="top">
 				<table border="0" cellspacing="0" cellpadding="0" width="159">
 					<tr>
-						<td class="Depth03"><a href="../product/addProductView.jsp;"
+						<td class="Depth03"><a href="/product/addProduct.do"
 							target="rightFrame">판매상품등록</a></td>
 					</tr>
 					<tr>
@@ -108,15 +108,15 @@ if (vo != null) {
 					if (vo != null && role.equals("user")) {
 					%>
 					<tr>
-						<td class="Depth03"><a href="../product/addProductView.jsp;"
+						<td class="Depth03"><a href="/addProductView.do?menu=manage"
 							target="rightFrame">판매상품등록</a></td>
 					</tr>
 					<tr>
-						<td class="Depth03"><a href="/listPurchase.do"
+						<td class="Depth03"><a href="/listPurchase.do?menu=search"
 							target="rightFrame">내가 산 물건</a></td>
 					</tr>
 					<tr>
-						<td class="Depth03"><a href="/listSale.do?menu=manage"
+						<td class="Depth03"><a href="/listSale.do?menu=search"
 							target="rightFrame">내가 판 물건</a></td>
 					</tr>
 					<%

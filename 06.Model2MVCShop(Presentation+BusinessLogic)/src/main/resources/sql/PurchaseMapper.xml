@@ -13,6 +13,7 @@
 		<result property="receiverName"		column="receiver_name"		jdbcType="VARCHAR" />
 		<result property="receiverPhone"	column="receiver_phone"		jdbcType="VARCHAR" />
 		<result property="divyAddr"		column="demailaddr"		jdbcType="VARCHAR" />
+		<result property="divyMessage"		column="dlvy_message"		jdbcType="VARCHAR" />
 		<result property="tranCode"		column="tran_status_code"	jdbcType="CHAR" />
 		<result property="orderDate"	column="order_date"		jdbcType="DATE" />
 		<result property="divyDate"		column="dlvy_date"		jdbcType="DATE" />

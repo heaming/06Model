@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,11 +22,12 @@ import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.purchase.PurchaseService;
 
+@Controller
 public class PurchaseController {
 
 	// field
 	@Autowired
-	@Qualifier("productServiceImpl")
+	@Qualifier("purchaseServiceImpl")
 	private PurchaseService purchaseService;
 
 	@Autowired
@@ -47,35 +49,56 @@ public class PurchaseController {
 
 	// method
 	@RequestMapping("/addPurchaseView.do")
-	public ModelAndView addPurchaseView(@RequestParam("prodNo") int prodNo, HttpSession session) throws Exception {
+	public ModelAndView addPurchaseView(@RequestParam("prodNo") int prodNo, @RequestParam("menu") String menu) throws Exception {
 
 		System.out.println("/addPurchaseView.do");
-
-		User user = (User) session.getAttribute("user");
-
+		
 		Product product = new Product();
 		product = productService.getProduct(prodNo);
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("/purchase/addPurchaseView.jsp");
-		modelAndView.addObject("user", user);
 		modelAndView.addObject("product", product);
 
+		System.out.println(product);
 		return modelAndView;
 	}
 
-	@RequestMapping(value="/addPurchse.do", method=RequestMethod.POST)
-	public ModelAndView addPurchase(@ModelAttribute("purchase") Purchase purchase, @ModelAttribute("product") Product product) throws Exception {
+	@RequestMapping(value="/addPurchase.do", method=RequestMethod.POST)
+	public ModelAndView addPurchase(@ModelAttribute("purchase") Purchase purchase, @ModelAttribute("product") Product product, HttpSession session) throws Exception {
 
+	
 		System.out.println("/addPurchase.do");
-
+		
+		System.out.println(purchase);
+		System.out.println(product);
+		System.out.println((User) session.getAttribute("user"));
+		
+		product = productService.getProduct(product.getProdNo());
+		
+		purchase.setPurchaseProd(product);
+		purchase.setBuyer((User) session.getAttribute("user"));
+		System.out.println(purchase);
+		
 		purchaseService.addPurchase(purchase);
+		
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/purchase/addPurchase.jsp");
 		modelAndView.addObject("purchase", purchase);
 
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/addPurchaseSuccess.do")
+	public String addPurchaseSuccess(ModelAndView modelAndview) throws Exception {
+		
+		Purchase st = (Purchase) modelAndview.getModelMap().get("purchase");
+		
+		System.out.println("/addProductSuccess.do");
+		System.out.println(st);
+		return "forward:/purchase/addPurchase.jsp";
+		
 	}
 
 
@@ -89,7 +112,7 @@ public class PurchaseController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("/purchase/getPurchase.jsp");
 		modelAndView.addObject("purchase", purchase);
-
+ 
 		return modelAndView;
 
 	}
@@ -112,7 +135,7 @@ public class PurchaseController {
 		System.out.println(resultPage);
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/purchase/getPurchase.jsp");
+		modelAndView.setViewName("/purchase/listPurchase.jsp");
 		modelAndView.addObject("list", map.get("list"));
 		modelAndView.addObject("resultPage", resultPage);
 		modelAndView.addObject("search", search);
@@ -128,6 +151,8 @@ public class PurchaseController {
 		System.out.println("/listSale.do");
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
+		
+		System.out.println(userId);
 
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
@@ -140,14 +165,17 @@ public class PurchaseController {
 			map = purchaseService.getSaleList(search);
 		} 
 		
+		System.out.println(map);
+		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/purchase/getPurchase.jsp");
+		modelAndView.setViewName("/purchase/listSale.jsp");
 		modelAndView.addObject("list", map.get("list"));
 		modelAndView.addObject("resultPage", resultPage);
 		modelAndView.addObject("search", search);
+		modelAndView.addObject("menu", menu);
 		
 		return modelAndView;
 

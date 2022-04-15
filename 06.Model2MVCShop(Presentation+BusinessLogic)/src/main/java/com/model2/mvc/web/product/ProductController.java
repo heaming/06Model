@@ -41,7 +41,7 @@ public class ProductController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 
-	@RequestMapping("/addProductView.do")
+	@RequestMapping(value="/addProductView.do")
 	public String addProductView() {
 
 		System.out.println("/addProductView.do");
