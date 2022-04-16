@@ -24,17 +24,40 @@ CREATE TABLE users (
 	PRIMARY KEY(user_id)
 );
 
+CREATE TABLE prodtag (
+	tag_no		number		not null,
+	tag_name	varchar2(30),
+	primary key(tag_no)
+)
+
+insert into prodtag values (100, 'coffee');
+insert into prodtag values (101, 'starbucks');
+insert into prodtag values (102, 'twosome');
+insert into prodtag values (200, 'electronics');
+
+
+
 
 CREATE TABLE product ( 
 	prod_no 						NUMBER 				NOT NULL,
+	prod_code				number	not null	REFERENCES prodtag(tag_no),
+	seller_id				varchar2(20)	NOT NULL REFERENCES users(user_id),
 	prod_name 				VARCHAR2(100) 	NOT NULL,
 	prod_detail 				VARCHAR2(200),
-	manufacture_day		VARCHAR2(8),
+	due_date		VARCHAR2(8),
+	cost		number,
 	price 							NUMBER(10),
 	image_file 					VARCHAR2(100),
 	reg_date 					DATE,
 	PRIMARY KEY(prod_no)
 );
+
+insert into product values (seq_product_prod_no.nextval, 200, 'user01' ,'인라인', '좋아욥','20120819',20000, 18000, 'AHlbAAAAve37LwAD.jpg',to_date('2012/11/14 10:51:40', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval, 101, 'user01','아메리카노','투샷','20121121',4500, 3000,'AHlbAAAAtBqyWAAA.jpg',to_date('2012/11/14 18:46:58', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval, 102, 'user15', '크림카라멜티','왜 다른곳에선 안팔아', '20121022',5100, 3000, 'AHlbAAAAtDPSiQAA.jpg',to_date('2012/11/15 17:39:01', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval, 200, 'user02','옷', '고르기 귀차나', '20120212',600000, 30000, 'AHlbAAAAug1vsgAA.jpg',to_date('2012/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
+
+
 
 CREATE TABLE transaction ( 
 	tran_no 					NUMBER 			NOT NULL,
@@ -44,7 +67,7 @@ CREATE TABLE transaction (
 	receiver_name 		VARCHAR2(20),
 	receiver_phone		VARCHAR2(14),
 	demailaddr 			VARCHAR2(100),
-	dlvy_request 			VARCHAR2(100),
+	dlvy_message 			VARCHAR2(100),
 	tran_status_code	CHAR(3),
 	order_data 			DATE,
 	dlvy_date 				DATE,
