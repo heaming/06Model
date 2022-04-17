@@ -168,11 +168,11 @@
 							</c:choose></td>
 						<td></td>
 						<td align="center"><a
-							href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=">판매
+							href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=&menu=search">판매
 								중</a> <a
-							href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=001">예약
+							href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=001&menu=manage">예약
 								중</a> <a
-							href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=002">거래
+							href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=002&menu=search">거래
 								완료</a></td>
 					</tr>
 					<tr>

@@ -141,8 +141,10 @@ public class PurchaseController {
 
 
 	@RequestMapping("/listSale.do")
-	public ModelAndView listSale(@ModelAttribute("search") Search search, @RequestParam("menu") String menu, HttpSession session) throws Exception {
+	public ModelAndView listSale(@ModelAttribute("search") Search search, HttpSession session) throws Exception {
 
+		
+		//@RequestParam("menu") String menu, 
 		System.out.println("/listSale.do");
 
 		String userId = ((User) session.getAttribute("user")).getUserId();
@@ -170,7 +172,7 @@ public class PurchaseController {
 		modelAndView.addObject("list", map.get("list"));
 		modelAndView.addObject("resultPage", resultPage);
 		modelAndView.addObject("search", search);
-		modelAndView.addObject("menu", menu);
+		//modelAndView.addObject("menu", menu);
 		
 		return modelAndView;
 
@@ -199,20 +201,18 @@ public class PurchaseController {
 		System.out.println("/updatePurchase.do");
 		
 		purchaseService.updatePurchase(purchase);
-		
-		purchase = purchaseService.getPurchase(purchase.getTranNo());
-		
+
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/purchase/getPurchase.do?tranNo="+purchase.getTranNo());
+		modelAndView.setViewName("/getPurchase.do");
 		
 		return modelAndView;
 	}
 
 	
-	@RequestMapping("/updateTranCodeByProdAction.do")
-	public ModelAndView updateTranCodeByProd(@RequestParam("tranNo") int tranNo, @RequestParam("tranCode") String tranCode, @RequestParam("menu") String menu) throws Exception {
+	@RequestMapping("/updateTranCodeByProd.do")
+	public ModelAndView updateTranCodeByProd(@RequestParam("tranNo") int tranNo, @RequestParam("tranCode") String tranCode) throws Exception {
 		
-		System.out.println("/updateTranCodeByProdAction.do");
+		System.out.println("/updateTranCodeByProd.do");
 		
 		Purchase purchase = purchaseService.getPurchase(tranNo);
 		purchase.setTranCode(tranCode);
@@ -220,7 +220,7 @@ public class PurchaseController {
 		purchaseService.updateTranCode(purchase);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/listSale.do?menu=manage");
+		modelAndView.setViewName("redirect:/listSale.do");
 	
 		return modelAndView;
 	}
