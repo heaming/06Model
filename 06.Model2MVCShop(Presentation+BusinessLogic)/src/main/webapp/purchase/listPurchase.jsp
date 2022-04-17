@@ -63,7 +63,7 @@
 			</td>
 			 --%>
 			<td colspan="11" >
-				전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+				전체  ${resultPage.totalCount} 건수, 현재 ${resultPage.currentPage}  페이지
 			</td>
 		</tr>
 		<tr>
@@ -87,9 +87,9 @@
 		<c:forEach var="purchase" items="${list}">
 			<c:set var="i" value="${ i+1 }" />
 			<tr class="ct_list_pop">
-				<td align="center"><a href="/getPurchase.do?tranNo=${tranNo}">${purchase.tranNo}</a></td>
+				<td align="center"><a href="/getPurchase.do?tranNo=${purchase.tranNo}">${purchase.tranNo}</a></td>
 				<td></td>
-				<td align="left"><a href="/getUser.do?userId=${purchaseProd.sellerId}">${purchase}</a></td>
+				<td align="left"><a href="/getUser.do?userId=${purchase.purchaseProd.sellerId}">${purchase.purchaseProd.sellerId}</a></td>
 				<td></td>
 				<td align="left">${purchase.divyMessage}</td>
 				<td></td>	

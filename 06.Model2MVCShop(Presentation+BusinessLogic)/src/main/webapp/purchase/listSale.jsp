@@ -1,6 +1,6 @@
-<%@ page contentType="text/html; charset=euc-kr" %>
+<%@ page contentType="text/html; charset=euc-kr"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 
@@ -28,41 +28,41 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
-
 	// 검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 	function fncGetList(currentPage) {
 		document.getElementById("currentPage").value = currentPage;
-	   	document.detailForm.submit();		
+		document.detailForm.submit();
 	}
-
 </script>
 
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
 
-<div style="width:98%; margin-left:10px;">
+	<div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/listSale.do" method="post">
+		<form name="detailForm" action="/listSale.do" method="post">
 
-<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
-	<tr>
-		<td width="15" height="37">
-			<img src="/images/ct_ttl_img01.gif" width="15" height="37" />
-		</td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left:10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<table width="100%" height="37" border="0" cellpadding="0"
+				cellspacing="0">
 				<tr>
-					<td width="93%" class="ct_ttl01">판매 목록조회</td>
+					<td width="15" height="37"><img src="/images/ct_ttl_img01.gif"
+						width="15" height="37" /></td>
+					<td background="/images/ct_ttl_img02.gif" width="100%"
+						style="padding-left: 10px;">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td width="93%" class="ct_ttl01">판매 목록조회</td>
+							</tr>
+						</table>
+					</td>
+					<td width="12" height="37"><img src="/images/ct_ttl_img03.gif"
+						width="12" height="37" /></td>
 				</tr>
 			</table>
-		</td>
-		<td width="12" height="37">
-			<img src="/images/ct_ttl_img03.gif" width="12" height="37"/>
-		</td>
-	</tr>
-</table>
-<!--
+	 		<input type="hidden" name="searchCondition" value="0" /> 
+			<input type="hidden" name="searchKeyword" value="${user.userId}" />
+			<!--
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
 		<td align="right">
@@ -93,34 +93,34 @@
 	</tr>
 </table>
 -->
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-	<tr>
-		<%--
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"
+				style="margin-top: 10px;">
+				<tr>
+					<%--
 		<td colspan="11" >
 			전체  <%= resultPage.getTotalCount() %> 건수, 현재 <%= resultPage.getCurrentPage() %> 페이지
 		</td>
 		 --%>
-		<td colspan="11" >
-			전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
-		</td>
-	</tr>
-	<tr>
-		<td class="ct_list_b" width="100">거래번호</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="100">거래일자</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">구매자ID</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">판매상품</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">판매상태</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">거래내역 수정</td>			
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="808285" height="1"></td>
-	</tr>
-	<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
+					<td colspan="11">전체 ${resultPage.totalCount } 건수, 현재
+						${resultPage.currentPage} 페이지</td>
+				</tr>
+				<tr>
+					<td class="ct_list_b" width="100">거래번호</td>
+					<td class="ct_line02"></td>
+					<td class="ct_list_b" width="100">거래일자</td>
+					<td class="ct_line02"></td>
+					<td class="ct_list_b" width="150">구매자ID</td>
+					<td class="ct_line02"></td>
+					<td class="ct_list_b" width="150">판매상품</td>
+					<td class="ct_line02"></td>
+					<td class="ct_list_b">판매상태</td>
+					<td class="ct_line02"></td>
+					<td class="ct_list_b">거래내역 수정</td>
+				</tr>
+				<tr>
+					<td colspan="11" bgcolor="808285" height="1"></td>
+				</tr>
+				<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 	<%
 		for(int i=0; i<list.size(); i++) {
 			User vo = list.get(i);
@@ -139,57 +139,60 @@
 		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
 	</tr>
 	<% } %>/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
-	
-	<c:set var="i" value="0" />
-	<c:forEach var="purchase" items="${list}">
-		<c:set var="i" value="${ i+1 }" />
-		<tr class="ct_list_pop">
-			<td align="center"><a href="/getPurchase.do?tranNo=${purchase.tranNo}">${purchase.tranNo}</a></td>
-			<td></td>
-			<td align="left">${purchase.orderDate}</td>
-			<td></td>
-			<td align="left"><a href="/getUser.do?userId=${purchase.buyer.userId}">${purchase.buyer.userId}</a></td>
-			<td></td>
-			<td align="left"><a href="/getProduct.do?prodNo=${purchase.purchaseProd.prodNo}&menu=search">${purchase.purchaseProd.prodName}</td>
-			<td></td>
-			<td align="center">
-				<c:choose>
-						<c:when test="${purchase.tranCode.equals('001')}">
+
+				<c:set var="i" value="0" />
+				<c:forEach var="purchase" items="${list}">
+					<c:set var="i" value="${ i+1 }" />
+					<tr class="ct_list_pop">
+						<td align="center"><a
+							href="/getPurchase.do?tranNo=${purchase.tranNo}">${purchase.tranNo}</a></td>
+						<td></td>
+						<td align="left">${purchase.orderDate}</td>
+						<td></td>
+						<td align="left"><a
+							href="/getUser.do?userId=${purchase.buyer.userId}">${purchase.buyer.userId}</a></td>
+						<td></td>
+						<td align="left"><a
+							href="/getProduct.do?prodNo=${purchase.purchaseProd.prodNo}&menu=search">${purchase.purchaseProd.prodName}</a></td>
+						<td></td>
+						<td align="center"><c:choose>
+								<c:when test="${purchase.tranCode.equals('001')}">
 							${trancode = "예약 중"}	
 						</c:when>
-						<c:when test="${purchase.tranCode.equals('002')}">
+								<c:when test="${purchase.tranCode.equals('002')}">
 							${trancode = "거래 완료"}	
 						</c:when>
-						<c:otherwise>
+								<c:otherwise>
 							${trancode = "판매중"}	
-						</c:otherwise>		
-					</c:choose>	
-			</td>
-			<td></td>
-			<td align="center">
-				<a href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=">판매 중</a>
-				<a href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=001">예약 중</a>
-				<a href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=002">거래 완료</a>
-			</td>		
-		</tr>
-		<tr>
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
-		</tr>
-	</c:forEach>
-</table>
+						</c:otherwise>
+							</c:choose></td>
+						<td></td>
+						<td align="center"><a
+							href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=&menu=search">판매
+								중</a> <a
+							href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=001&menu=manage">예약
+								중</a> <a
+							href="/updateTranCodeByProd.do?tranNo=${purchase.tranNo}&tranCode=002&menu=search">거래
+								완료</a></td>
+					</tr>
+					<tr>
+						<td colspan="11" bgcolor="D6D7D6" height="1"></td>
+					</tr>
+				</c:forEach>
+			</table>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top:10px;">
-	<tr>
-		<td align="center">
-		   <input type="hidden" id="currentPage" name="currentPage" value=""/>	
-			<jsp:include page="../common/pageNavigator.jsp"/>				
-    	</td>
-	</tr>
-</table>
-<!-- PageNavigation End... -->
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"
+				style="margin-top: 10px;">
+				<tr>
+					<td align="center"><input type="hidden" id="currentPage"
+						name="currentPage" value="" /> <jsp:include
+							page="../common/pageNavigator.jsp" /></td>
+				</tr>
+			</table>
+			<!-- PageNavigation End... -->
 
-</form>
-</div>
+		</form>
+	</div>
 
 </body>
 </html>

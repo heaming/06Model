@@ -21,6 +21,7 @@
 		<association property="purchaseProd" javaType="product">
 			<id property="prodNo" 	column="prod_no"	jdbcType="NUMERIC" />	
 			<result property="sellerId"		column="seller_id"	jdbcType="VARCHAR" />
+			<result property="prodName"		column="prod_name"	jdbcType="VARCHAR" />			
 		</association>
 		
 		<association property="buyer"	javaType="user">
@@ -76,12 +77,13 @@
 		resultMap="purchaseSelectMap">
 		SELECT *
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-				FROM 	( 	SELECT tran_no, prod_no, buyer_id, tran_status_code, order_date, dlvy_date
-							FROM transaction
+				FROM 	( 	SELECT t.tran_no, t.prod_no, t.buyer_id, t.tran_status_code, t.order_date, t.dlvy_date, t.dlvy_message, p.seller_id, p.prod_name
+							FROM transaction t, product p
 							<where>
-								buyer_id = #{searchKeyword}
+								t.buyer_id = #{searchKeyword}
+								AND t.prod_no = p.prod_no
 							</where>
-							ORDER BY order_date DESC) inner_table
+							ORDER BY t.order_date DESC) inner_table
 				WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
@@ -92,7 +94,7 @@
 		resultMap="purchaseSelectMap"> 
 		SELECT *
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-				FROM 	( 	SELECT t.tran_no, t.prod_no, t.buyer_id, t.tran_status_code, t.order_date, t.dlvy_date, p.seller_id
+				FROM 	( 	SELECT t.tran_no, t.prod_no, t.buyer_id, t.tran_status_code, t.order_date, t.dlvy_date, p.seller_id, p.prod_name
 							FROM transaction t, product p
 							<where>
 								t.prod_no = p.prod_no
@@ -130,12 +132,12 @@
 	<!-- SELECT Row count -->
 	<select id="getTotalCount" parameterType="search" resultType="int">
 		SELECT COUNT(*)
-		FROM	(	SELECT t.tran_no, t.prod_no, t.buyer_id, t.tran_status_code, t.order_date, t.dlvy_date, p.seller_id
+		FROM	(	SELECT t.*, p.seller_id, p.prod_name
 							FROM transaction t, product p
 							<if test="searchCondition != null">
 								<where>
 									<if test="searchCondition == 0 and searchKeyword !='' ">
-										t.prod_no = p.prod_no
+										t.prod_no = p.prod_no <!-- t.prod_no(+) = p.prod_no하면 모두 볼 수 있 -->
 										AND p.seller_id = #{searchKeyword}
 									</if>
 									<if test="searchCondition == 1 and searchKeyword !='' ">
